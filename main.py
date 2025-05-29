@@ -3,18 +3,13 @@ import requests
 import time
 from datetime import datetime
 from bs4 import BeautifulSoup
-from scorer import check_dexscreener_score
 
 TOKEN = os.getenv("TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
 def send_message(text):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    payload = {
-        "chat_id": CHAT_ID,
-        "text": text,
-        "parse_mode": "HTML"
-    }
+    payload = {"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}
     try:
         requests.post(url, data=payload)
     except Exception as e:
@@ -25,7 +20,6 @@ COINS = {
     "DOGE": "https://www.coingecko.com/en/coins/dogecoin",
     "SHIBA": "https://www.coingecko.com/en/coins/shiba-inu"
 }
-
 TARGET_COIN = "PEPE"
 
 def get_coin_price(url):
@@ -106,40 +100,24 @@ def radar_loop():
         honeypot = run_honeypot_test()
         confidence = confidence_score()
         signal = auto_signal(preis)
-        dex_score = check_dexscreener_score(TARGET_COIN)
 
         message = (
-            f"📡 <b>CryptoRadar FULL</b>
-"
-            f"💰 Coin: <b>{TARGET_COIN}</b>
-"
-            f"📈 Preis: <b>{preis}</b>
-"
-            f"🧠 Bewertung: {score}
-"
-            f"🔐 Quelle: {scam}
-"
-            f"🐋 Whale-Warnung: {whale}
-"
-            f"📊 DEX-Daten: {dex}
-"
-            f"🔒 LP-Status: {lp}
-"
-            f"🧪 Honeypot-Test: {honeypot}
-"
-            f"📉 Vertrauen: {confidence}
-"
-            f"📣 Signal: {signal}
-"
-            f"🧮 DexScore: {dex_score}
-"
+            f"📡 <b>CryptoRadar FULL</b>\n"
+            f"💰 Coin: <b>{TARGET_COIN}</b>\n"
+            f"📈 Preis: <b>{preis}</b>\n"
+            f"🧠 Bewertung: {score}\n"
+            f"🔐 Quelle: {scam}\n"
+            f"🐋 Whale-Warnung: {whale}\n"
+            f"📊 DEX-Daten: {dex}\n"
+            f"🔒 LP-Status: {lp}\n"
+            f"🧪 Honeypot-Test: {honeypot}\n"
+            f"📉 Vertrauen: {confidence}\n"
+            f"📣 Signal: {signal}\n"
             f"🕒 Zeit: {now}"
         )
-
         send_message(message)
         time.sleep(300)
 
 if __name__ == "__main__":
-    send_message(f"🚨 CryptoRadar gestartet!
-Target: <b>{TARGET_COIN}</b>")
+    send_message(f"🚨 CryptoRadar gestartet!\nTarget: <b>{TARGET_COIN}</b>")
     radar_loop()
