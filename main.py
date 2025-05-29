@@ -106,7 +106,7 @@ def radar_loop():
         dexscore = check_dexscreener_score(TARGET_COIN)
 
         message = (
-            f"📡 <b>CryptoRadar FULL</b>
+            f"<b>CryptoRadar FULL</b>"
 "
             f"💰 Coin: <b>{TARGET_COIN}</b>
 "
