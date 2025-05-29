@@ -1,4 +1,3 @@
-# ✅ CryptoRadarBot Final (main.py)
 import os
 import requests
 import time
@@ -11,7 +10,11 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 def send_message(text):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    payload = {"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": text,
+        "parse_mode": "HTML"
+    }
     try:
         requests.post(url, data=payload)
     except Exception as e:
@@ -103,10 +106,10 @@ def radar_loop():
         honeypot = run_honeypot_test()
         confidence = confidence_score()
         signal = auto_signal(preis)
-        dexscore = check_dexscreener_score(TARGET_COIN)
+        dex_score = check_dexscreener_score(TARGET_COIN)
 
         message = (
-            f"<b>CryptoRadar FULL</b>"
+            f"📡 <b>CryptoRadar FULL</b>
 "
             f"💰 Coin: <b>{TARGET_COIN}</b>
 "
@@ -126,12 +129,13 @@ def radar_loop():
 "
             f"📉 Vertrauen: {confidence}
 "
-            f"🔍 DexScreener: {dexscore}
-"
             f"📣 Signal: {signal}
+"
+            f"🧮 DexScore: {dex_score}
 "
             f"🕒 Zeit: {now}"
         )
+
         send_message(message)
         time.sleep(300)
 
